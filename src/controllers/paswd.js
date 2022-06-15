@@ -24,7 +24,7 @@ function sendMail(req, res) {
       <div style="display: block; margin: auto; max-width: 600px;" class="main">
       <img alt="Inspect with Tabs" src="https://assets-examples.mailtrap.io/integration-examples/welcome.png" style="width: 100%;">
       <p>Hi, click on the below link to change your password.</p>
-      <a href="https://www.google.com">RESTORE PASSWORD</a>
+      <a href="http://localhost:3000/password/supersecreturl/${mail}">RESTORE PASSWORD</a>
       <p>If your email is not ${mail}, ignore this message.</p>
         <p>Good luck! Hope it works.</p>
       <style>

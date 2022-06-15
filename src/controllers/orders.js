@@ -42,6 +42,12 @@ async function createOrder(req,res){
                 cuantity:1
             })
         })
+        
+        const ventaOrder= {
+            id:order.id,
+            det:req.body.orders
+        }
+        
         res.status(200).send('Creacion de Orden Exitosa')
     }catch(error){
         res.send(`Error: ${error}`)
