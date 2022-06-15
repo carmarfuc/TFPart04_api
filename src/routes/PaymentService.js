@@ -27,9 +27,9 @@ class PaymentService {
         return { title: p.description, unit_price: p.price, quantity: 1 }
       }),
       back_urls: {
-        success: `http://localhost:3000/successOrder`, // CAMBIAR POR EL FRONT DEPLOYADO
-        pending: `http://localhost:3000/home`,
-        failure: `http://localhost:3000/home`,
+        success: `https://tfp-art04-client-three.vercel.app/successOrder`, // CAMBIAR POR EL FRONT DEPLOYADO
+        pending: `https://tfp-art04-client-three.vercel.app/home`,
+        failure: `https://tfp-art04-client-three.vercel.app/home`,
       },
       // notification_url: 'http://localhost:3001/mercadopago/feedback', // CAMBIAR POR UNA RUTA DE BACK DEPLOYADO
       auto_return: 'approved',
