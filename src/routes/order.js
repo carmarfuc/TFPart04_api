@@ -5,7 +5,8 @@ const {createOrder,getOrders,getOrdersByOrderId,getOrdersByState,updateStateOrde
 router.post("/", createOrder)
 router.get("/getbyorder/:orderId",getOrdersByOrderId)
 router.get("/status",getOrdersByState)
-router.get("/:userId", getOrders)
+router.get("/:userEmail", getOrders)
+
 router.put("/", updateStateOrder)
 
 module.exports = router;

@@ -7,26 +7,17 @@ const { User } = require("../db.js");
 
 async function getUser(req,res,next){
     const {email}=req.query;
-
-    
-
     if (email)
     {
         try {
             const user = await User.findAll({
                 where:{
                     email:{[Op.iLike]:`%${email}%`},
-
                     // password:{[Op.iLike]:`%${password}%`}
-
                 },
-                
             });
-            
 
             // const nickName=user[0].dataValues;
-
-            
             user ? res.json(user) : res.send("No existe el usuario");
         } catch (error) {
             res.send(error);

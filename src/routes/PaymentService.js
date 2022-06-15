@@ -21,17 +21,13 @@ class PaymentService {
     this.mercadopago = mercadopagoSDK
   }
 
-  async createPaymentMercadoPago() {
+  async createPaymentMercadoPago(products) {
     const preference = {
-      items: [
-        {
-          title: 'Cookie',
-          unit_price: 100,
-          quantity: 1,
-        },
-      ],
-      redirect_urls: {
-        success: `http://localhost:3000/home`, // CAMBIAR POR EL FRONT DEPLOYADO
+      items: products.map(p => {
+        return { title: p.description, unit_price: p.price, quantity: 1 }
+      }),
+      back_urls: {
+        success: `http://localhost:3000/successOrder`, // CAMBIAR POR EL FRONT DEPLOYADO
         pending: `http://localhost:3000/home`,
         failure: `http://localhost:3000/home`,
       },
@@ -41,7 +37,6 @@ class PaymentService {
 
     try {
       const response = await this.mercadopago.preferences.create(preference)
-      console.log('Hasta aca todo flama')
       return response.body
     } catch (e) {
       console.log(e)
