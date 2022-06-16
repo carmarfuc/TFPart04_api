@@ -62,9 +62,11 @@ Actualizar status de la orden
 */
 async function updateStateOrder(req,res){
     const { orderId, status } = req.body;
+    console.log(req.body.orderId)
+    sendMail("updated", req.body.orderId); 
     try{
         await Orders_head.update({orderId,status},{where:{id:orderId}})
-        sendMail("updated", req.body, );
+        // sendMail("updated", req.body, );
         res.send("Se ha actualizdo el estados de la orden")
     }catch(error){res.send(`Error: ${error}`)}    
 }
