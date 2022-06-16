@@ -649,11 +649,24 @@ async function chargeOrder(){
 
 
 
+const locationsdb = [
+    {city:"cali",coorCityLat: 3.4142326,coorCitylng: -76.5372511,name:"stadium",lat: 3.4217317, lng: -76.5344328},
+    {city:"cali",coorCityLat: 3.4168994,coorCitylng: -76.5260932,name:"el dorado",lat: 3.4198722, lng: -76.5276451},
+    {city:"cali",coorCityLat: 3.4168994,coorCitylng: -76.5260932,name:"paso ancho",lat: 3.4162782, lng: -76.5289899}
+]
+
+function chargeLocations() {
+    Location.bulkCreate(locationsdb)
+}
+
+
+
 module.exports = {
     chargecategories,
     chargeproducts,
     chargeusers,
     chargereviews,
     createReview,
-    chargeOrder
+    chargeOrder,
+    chargeLocations
 }
