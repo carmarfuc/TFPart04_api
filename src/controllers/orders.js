@@ -1,6 +1,6 @@
 const { User, Orders_head, Orders_pos } = require("../db.js");
 const { v4: uuidv4,validate } = require("uuid");
-
+const {sendMail} = require('./mailProds.js');
 /*
 envio de ordenes por Body:
 {
@@ -48,6 +48,7 @@ async function createOrder(req,res){
             det:req.body.orders
         }
         
+        sendMail("created", order.id);
         res.status(200).send('Creacion de Orden Exitosa')
     }catch(error){
         res.send(`Error: ${error}`)
@@ -63,6 +64,7 @@ async function updateStateOrder(req,res){
     const { orderId, status } = req.body;
     try{
         await Orders_head.update({orderId,status},{where:{id:orderId}})
+        sendMail("updated", req.body, );
         res.send("Se ha actualizdo el estados de la orden")
     }catch(error){res.send(`Error: ${error}`)}    
 }
