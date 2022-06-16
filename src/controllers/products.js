@@ -16,15 +16,12 @@ async function getProduct(req, res, next) {
     const { name } = req.query;
     console.log('ID ', idProduct);
     console.log('NOMBRE ', name);
-   try {
-        if (validate(idProduct)) {
-        
+    if (validate(idProduct)) {
         try {
-            
-            const product = await Product.findByPk(idProduct, {
-                include: [{ model: Category }, { model: User }, { model: Review }]
-            });
-            if (product) {
+            if (idProduct) {
+                const product = await Product.findByPk(idProduct, {
+                    include: [{ model: Category }, { model: User }, { model: Review }]
+                });
                 const { id, name, description, image, ranking, createBy, price, stock, categories, users, reviews } = product;
                 const response = {
                     id,
@@ -46,72 +43,55 @@ async function getProduct(req, res, next) {
                     }
                     )
                 }
-                res.status(202).json(response);
+                res.json(response);
             } else {
-                res.status(500).send("NOT FOUND");
+                res.send("idProduct is required");
             }
         } catch (error) {
-            res.status(500).send("NOT FOUND");
+            next(error);
         }
-    } 
-    
-    if(idProduct === 'name') {
-            if (name !== 'all') {
-                const searchDbNames = await Product.findAll({
-                    where: {
-                        name: { [Op.iLike]: `%${name}%` },
-                    },
-                    include: Category,
-                });
-                if (searchDbNames.length > 0) {
-                    let finalProduct = searchDbNames.map(product => {
-                        return {
-                            id: product.id,
-                            name: product.name,
-                            description: product.description,
-                            image: product.image,
-                            ranking: product.ranking,
-                            createdBy: product.createdBy,
-                            price: product.price,
-                            stock: product.stock,
-                            categories: product.categories.map(category => category.name),
-                        }
-                    });
-                    res.status(202).json(finalProduct);
-                }else{
-                    res.status(500).send('NOT FOUND');
+    } else {
+        if (name) {
+            const searchDbNames = await Product.findAll({
+                where: {
+                    name: { [Op.iLike]: `%${name}%` },
+                },
+                include: Category,
+            });
+            let finalProduct = searchDbNames.map(product => {
+                return {
+                    id: product.id,
+                    name: product.name,
+                    description: product.description,
+                    image: product.image,
+                    ranking: product.ranking,
+                    createdBy: product.createdBy,
+                    price: product.price,
+                    stock: product.stock,
+                    categories: product.categories.map(category => category.name),
                 }
-            } else{
-                const getProduct = await Product.findAll({
-                    include: Category,
-                });
-                if (getProduct) {
-                let finalProduct = getProduct.map(product => {
-                    return {
-                        id: product.id,
-                        name: product.name,
-                        description: product.description,
-                        image: product.image,
-                        ranking: product.ranking,
-                        createdBy: product.createdBy,
-                        price: product.price,
-                        stock: product.stock,
-                        categories: product.categories.map(category => category.name),
-                    }
-                });
-                res.status(202).json(finalProduct);
-            }else{
-                res.status(500).send('NOT FOUND');
-            }
-            }
-        
+            });
+            res.status(200).json(finalProduct);
+        } else {
+            const getProduct = await Product.findAll({
+                include: Category,
+            });
+            let finalProduct = getProduct.map(product => {
+                return {
+                    id: product.id,
+                    name: product.name,
+                    description: product.description,
+                    image: product.image,
+                    ranking: product.ranking,
+                    createdBy: product.createdBy,
+                    price: product.price,
+                    stock: product.stock,
+                    categories: product.categories.map(category => category.name),
+                }
+            });
+            res.status(200).json(finalProduct);
+        }
     }
-   } catch (error) {
-    res.status(500).send('PARAMS ERROR');
-   }
-
-
-    
 };
 
 
