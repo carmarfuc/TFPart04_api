@@ -41,15 +41,14 @@ async function sendMail(status, id) {
     html:eMail,
   }
 
-  transport.sendMail(mailOptopts, function (err, info) {
-    if (err) {
-      res.status(500)
-        .json({msg:err});
-    } else {
-      res.status(200)
-        .json({msg:"Mail send it "+ info});
-    }
-  });
+  // transport.sendMail(mailOptopts, function (err, info) {
+  //   if (err) {
+  //     res.status(500).json({msg:err});
+  //   } else {
+  //     res.status(200)
+  //       .json({msg:"Mail send it "+ info});
+  //   }
+  // });
   
 }
 
