@@ -174,26 +174,65 @@ async function createProduct(req, res, next) {
     // res.send('Created succesfully, saludos desde el BACK!!')
 };
 
+// async function updateProduct(req, res) {
+//     const { idProduct } = req.params;
+//     const { name, description, image, ranking, createBy, price, categories, stock } = req.body;
+//     let updateProduct = await Product.findOne({
+//         where: {
+//             id: idProduct,
+//         },
+//         include: Category,
+//     })
+//     console.log('updateProduct', updateProduct);
+//     categoria = updateProduct.categories[0].id;
+//     console.log('CATEGORIA', categoria);
+//     console.log('CATEGORIA', categories);
+//     await updateProduct.update({
+//         name,
+//         description,
+//         image,
+//         ranking,
+//         createBy,
+//         price,
+//         stock
+
+//     })
+//     if (categories!=null) {
+//         console.log('categories', categories.length);
+//         await updateProduct.setCategories(categories);
+//     }
+    
+//     res.send('Producto modificado ');
+// }
+
 async function updateProduct(req, res) {
     const { idProduct } = req.params;
     const { name, description, image, ranking, createBy, price, categories, stock } = req.body;
-    let updateProduct = await Product.findOne({
-        where: {
-            id: idProduct,
-        }
-    })
-    await updateProduct.update({
-        name,
-        description,
-        image,
-        ranking,
-        createBy,
-        price,
-        stock
+    
+    if(categories.length > 0){       
+        let updateProduct = await Product.findOne({
+            where: {
+                id: idProduct,
+            }
+        })
+        await updateProduct.update({
+            name,
+            description,
+            image,
+            ranking,
+            createBy,
+            price,
+            stock
 
-    })
-    await updateProduct.setCategories(categories)
-    res.send('Producto modificado ');
+        })
+        await updateProduct.setCategories(categories)
+        res.send('Producto modificado ');
+    }else{
+        Product.update(req.body,{where:{id:req.params.idProduct}})
+        .then(()=>res.send('Actualizado Exitosamente'))
+        .catch(error=> console.log(`Error en Actualizacion: ${error}`))
+    }
+    
 }
 
 async function deleteProduct(req, res) {

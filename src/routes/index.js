@@ -10,7 +10,7 @@ const Order = require('./order.js');
 const MercadoPago = require('./mercadopago.js');
 const Password = require('./password.js');
 const Review = require('./review.js');
-
+const Location = require('./location');
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -22,6 +22,7 @@ router.use('/user', User);
 router.use('/order',Order);
 router.use('/mercadopago',MercadoPago);
 router.use('/password', Password);
+router.use('/location', Location);
 router.use('/', (req, res) => {
     res.send('APP is running');
 })
