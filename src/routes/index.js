@@ -23,9 +23,9 @@ router.use('/order',Order);
 router.use('/mercadopago',MercadoPago);
 router.use('/password', Password);
 router.use('/location', Location);
-router.use('/', (req, res) => {
-    res.send('APP is running');
-})
+//router.use('/', (req, res) => {
+//    res.send('APP is running');
+//})
 
 
 
