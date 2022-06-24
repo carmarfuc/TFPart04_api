@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     usertype: {
       type: DataTypes.STRING(8),
       allowNull: true,
-      defaultValue: "user",
+      defaultValue: "User",
     },
     nickName: {    //2
       type: DataTypes.STRING(20),
