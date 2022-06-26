@@ -8,13 +8,10 @@ function sendMail(req, res) {
     port: 465,//2525,
     secure: true,
     auth: {
-      user: "cmf.mega01@gmail.com",//"149cf269cee26c",
-      pass: "zbxl fyus dfdf wtvk",//"e272244964a996"//zbxl fyus dfdf wtvk
-    },
-    // debug: true, // show debug output
-    // logger: true // log information in console
-  });
-
+      user: "cmf.mega01@gmail.com",
+      pass: "zbxl fyus dfdf wtvk",
+    }});
+// https://tf-henry-04-02.herokuapp.com
   const eMail = `<!doctype html>
   <html>
     <head>
@@ -24,7 +21,7 @@ function sendMail(req, res) {
       <div style="display: block; margin: auto; max-width: 600px;" class="main">
       <img alt="Inspect with Tabs" src="https://assets-examples.mailtrap.io/integration-examples/welcome.png" style="width: 100%;">
       <p>Hi, click on the below link to change your password.</p>
-      <a href="http://localhost:3000/password/supersecreturl/${mail}">RESTORE PASSWORD</a>
+      <a href="https://tfp-art04-client.vercel.app/password/supersecreturl/${mail}">RESTORE PASSWORD</a>
       <p>If your email is not ${mail}, ignore this message.</p>
         <p>Good luck! Hope it works.</p>
       <style>
@@ -36,7 +33,7 @@ function sendMail(req, res) {
 
   const mailOptopts = {
     // from:"149cf269cee26c@mailtrap.io", //@mailtrap.io
-    from:"codecamp@gmail.com", //@gmail.com
+    from:"codecamp@gmail.com",
     to: `${mail}`,
     subject: "Change password",
     html:eMail,
@@ -44,11 +41,11 @@ function sendMail(req, res) {
 
   transport.sendMail(mailOptopts, function (err, info) {
     if (err) {
-      res.status(500)
-        .json({msg:err});
+      // res.status(500)
+      //   .json({msg:err});
     } else {
-      res.status(200)
-        .json({msg:"Mail send it "+ info});
+      // res.status(200)
+      //   .json({msg:"Mail send it "+ info});
     }
   });
   
